@@ -119,7 +119,7 @@ The provided `HomeComponent` demonstrates how to use the `SelectBoxComponent` wi
 
 ## License
 
-This project is licensed under the <a href="https://github.com/arifuzzaman-tanin/Blazor-Searchable-SelectBox?tab=MIT-1-ov-file">MIT License</a>. Feel free to modify and use it in your projects.
+This project is licensed under the MIT License. Feel free to modify and use it in your projects.
 
 ---
 
