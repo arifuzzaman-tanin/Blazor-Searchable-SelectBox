@@ -1,0 +1,125 @@
+@page "/home"
+
+<p>Home component</p>
+
+<SelectBoxComponent Items="roles" ValueChangeEvent="(e)=>OnChangeHandler(e)" SelectedId="5" />
+<p>Value from Child: @selectBoxObject?.Text</p>
+
+@code{
+    private IEnumerable<SelectBox> roles;
+    private SelectBox selectBoxObject;
+
+    public void OnChangeHandler(SelectBox passedObject)
+    {
+        selectBoxObject = passedObject;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        roles = new List<SelectBox>
+            {
+                new SelectBox
+                {
+                    Id = "3",
+                    Text = "Developer"
+                },
+                new SelectBox
+                {
+                    Id = "4",
+                    Text = "Manager"
+                },
+                new SelectBox
+                {
+                    Id = "5",
+                    Text = "Tester"
+                },
+                new SelectBox
+                {
+                    Id = "6",
+                    Text = "Designer"
+                },
+                new SelectBox
+                {
+                    Id = "7",
+                    Text = "Analyst"
+                },
+                new SelectBox
+                {
+                    Id = "8",
+                    Text = "Engineer"
+                },
+                new SelectBox
+                {
+                    Id = "9",
+                    Text = "Architect"
+                },
+                new SelectBox
+                {
+                    Id = "10",
+                    Text = "Coordinator"
+                },
+                new SelectBox
+                {
+                    Id = "11",
+                    Text = "Supervisor"
+                },
+                new SelectBox
+                {
+                    Id = "12",
+                    Text = "Specialist"
+                },
+                new SelectBox
+                {
+                    Id = "13",
+                    Text = "Coordinator"
+                },
+                new SelectBox
+                {
+                    Id = "14",
+                    Text = "Consultant"
+                },
+                new SelectBox
+                {
+                    Id = "15",
+                    Text = "Trainer"
+                },
+                new SelectBox
+                {
+                    Id = "16",
+                    Text = "Coordinator"
+                },
+                new SelectBox
+                {
+                    Id = "17",
+                    Text = "Advisor"
+                },
+                new SelectBox
+                {
+                    Id = "18",
+                    Text = "Coordinator"
+                },
+                new SelectBox
+                {
+                    Id = "19",
+                    Text = "Specialist"
+                },
+                new SelectBox
+                {
+                    Id = "20",
+                    Text = "Coordinator"
+                },
+                new SelectBox
+                {
+                    Id = "21",
+                    Text = "Manager"
+                },
+                new SelectBox
+                {
+                    Id = "22",
+                    Text = "Marketing"
+                }
+            };
+
+        await base.OnInitializedAsync();
+    }
+}

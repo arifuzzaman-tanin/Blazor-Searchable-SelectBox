@@ -1,0 +1,159 @@
+<div class="col-sm-3">
+    <div class="search-container-select-65">
+        <input @onclick="ToggleDiv" readonly type="search" class="form-control shadow-none border-0 input-search-select-65 @SelectBoxClasses" placeholder="Search role" value="@currentValue?.ToString()" />
+        <div class="dropdown-select-65" hidden="@isHiddenDiv">
+            <div class="bg-white">
+                <div class="p-2">
+                    <input autofocus type="search" class="form-control @SearchFieldClasses" @oninput="OnChangeHandler" @bind="customValue" />
+                </div>
+            </div>
+
+            <div class="overflow-auto" style="height:200px !important;">
+                <ul class="list-group">
+                    @foreach (var item in FilteredItems)
+                    {
+                        var active = "";
+                        if (activeItemClass.ContainsKey(item.Id))
+                        {
+                            active = activeItemClass[item.Id];
+                        }
+                        <li @key="item.Id" class="list-group-item rounded-0 border-color-select-65 border-0 @active @OptionItemClasses" @onclick="() => SelectItem(item)">@item.Text</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dropdown-select-65 {
+        width: 100%;
+        position: absolute;
+        z-index: 10;
+        border: 1px solid #E6E9EC;
+        border-top: 0px !important;
+    }
+
+    .input-search-select-65 {
+        border: 1px solid #E6E9EC !important;
+    }
+
+    .border-color-select-65 {
+        border-top: 1px solid #E6E9EC !important;
+    }
+
+    .list-group-item:hover {
+        background-color: #0d6efd;
+        cursor: pointer;
+        color: white;
+    }
+
+    div[style="position: relative;"] {
+        position: relative;
+    }
+
+    .search-container-select-65 {
+        position: relative;
+    }
+</style>
+
+@code {
+    private bool isHiddenDiv;
+    private string customValue;
+    private string currentValue;
+    private string Id = string.Empty;
+
+    [Parameter] public EventCallback<SelectBox> ValueChangeEvent { get; set; }
+    [Parameter] public IEnumerable<SelectBox> Items { get; set; }
+    [Parameter] public string SelectedId { get; set; } = string.Empty;
+    [Parameter] public string SelectBoxClasses { get; set; } = string.Empty;
+    [Parameter] public string SearchFieldClasses { get; set; } = string.Empty;
+    [Parameter] public string OptionItemClasses { get; set; } = string.Empty;
+
+    private IEnumerable<SelectBox> FilteredItems { get; set; }
+
+    private Dictionary<string, string> activeItemClass = new Dictionary<string, string>();
+
+    protected override void OnInitialized()
+    {
+        FilteredItems = Items;
+        activeItemClass = new Dictionary<string, string>();
+        if (!string.IsNullOrEmpty(SelectedId))
+        {
+            foreach (var item in FilteredItems)
+            {
+                if (item.Id != string.Empty && item.Id == SelectedId)
+                {
+                    activeItemClass.Add(item.Id, "active");
+                }
+                else
+                {
+                    activeItemClass.Add(item.Id, string.Empty);
+                }
+            }
+        }
+        else
+        {
+            SetActiveClassValue();
+        }
+        
+        isHiddenDiv = true;
+    }
+
+    private void ToggleDiv()
+    {
+        isHiddenDiv = !isHiddenDiv;
+        if (!isHiddenDiv)
+        {
+            customValue = string.Empty; // Clear the search input when hiding the dropdown
+        }
+    }
+
+    private void OnChangeHandler()
+    {
+        FilteredItems = Items.Where(x => x.Text.Trim().ToUpper().Contains(customValue.Trim().ToUpper()));
+    }
+
+    private void SelectItem(SelectBox selectedItem)
+    {
+        if (Id == selectedItem.Id)
+        {
+            selectedItem = new SelectBox()
+                {
+                    Id = string.Empty,
+                    Text = string.Empty
+                };
+        }
+        ValueChangeEvent.InvokeAsync(selectedItem);
+        currentValue = selectedItem.Text;
+        customValue = string.Empty;
+        Id = selectedItem.Id;
+        isHiddenDiv = true;
+        OnChangeHandler();
+        SetActiveClassValue();
+    }
+
+    private void SetActiveClassValue()
+    {
+        activeItemClass = new Dictionary<string, string>();
+
+        foreach (var item in FilteredItems)
+        {
+            if (item.Id != string.Empty && item.Id == Id)
+            {
+                activeItemClass.Add(item.Id, "active");
+            }
+            else
+            {
+                activeItemClass.Add(item.Id, string.Empty);
+            }
+        }
+    }
+
+    // Class representing the selectable items
+    public class SelectBox
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+    }
+}
