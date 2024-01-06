@@ -1,5 +1,8 @@
 # SelectBoxComponent
 
+<img src="https://raw.githubusercontent.com/arifuzzaman-tanin/Blazor-Searchable-SelectBox/main/animated%20selectbox.png" />
+
+
 ## Overview
 
 The `SelectBoxComponent` is a reusable Blazor component designed to provide a flexible and customizable dropdown select box for use in web applications. It allows users to select from a list of predefined items and provides search functionality for easy item navigation.
