@@ -1,4 +1,4 @@
-# SelectBoxComponent
+# Select Box Component
 
 <img src="https://raw.githubusercontent.com/arifuzzaman-tanin/Blazor-Searchable-SelectBox/main/animated%20selectbox.png" />
 
