@@ -1,4 +1,4 @@
-# SelectBoxComponent Readme
+# SelectBoxComponent
 
 ## Overview
 
