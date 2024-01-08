@@ -118,7 +118,7 @@ The provided `HomeComponent` demonstrates how to use the `SelectBoxComponent` wi
 
 ## Contributors
 
-- [Md Arifuzzaman Tanin]
+- <a href="https://github.com/arifuzzaman-tanin">[Md Arifuzzaman Tanin]</a>
 
 ## License
 
